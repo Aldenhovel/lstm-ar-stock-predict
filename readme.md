@@ -92,5 +92,14 @@ matplotlib==3.5.3
 
 ## 结果示例
 
-![sample1](img/sample.png)
+![sample1](D:/gitrepo/lstm-ar-stock-predict/img/sample0.png)
 
+<hr/>
+
+![sample1](D:/gitrepo/lstm-ar-stock-predict/img/sample1.png)
+
+<hr/>
+
+![sample1](D:/gitrepo/lstm-ar-stock-predict/img/sample2.png)
+
+\* @N 表示向后推理N步。

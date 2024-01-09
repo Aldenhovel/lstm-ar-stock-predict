@@ -94,5 +94,15 @@ See the example in `get_sample.ipynb`.
 
 ## Example of results
 
-![sample1](img/sample.png)
+![sample1](img/sample0.png)
+
+<hr/>
+
+![sample1](img/sample1.png)
+
+<hr/>
+
+![sample1](img/sample2.png)
+
+\* @N means infer N steps .
 
