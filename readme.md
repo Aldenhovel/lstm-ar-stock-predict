@@ -2,9 +2,12 @@
 
 ![s](img/title.png)
 
-
-
-
+<h4 align="center">
+    <p>
+        <b>简体中文</b> |
+        <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme_en.md">English</a> 
+    <p>
+</h4>
 
 ## 声明
 
@@ -86,8 +89,6 @@ matplotlib==3.5.3
 ### 获取测试样本
 
 参考 `get_sample.ipynb` 中的示例。
-
-
 
 ## 结果示例
 

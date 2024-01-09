@@ -2,9 +2,12 @@
 
 ![s](img/title.png)
 
-
-
-
+<h4 align="center">
+    <p>
+        <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme.md">简体中文</a> |
+        <b>English</b> 
+    <p>
+</h4>
 
 ## Declaration
 
