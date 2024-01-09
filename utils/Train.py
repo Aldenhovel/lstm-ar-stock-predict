@@ -36,7 +36,7 @@ def train_step(model, optimizer, criterion, loader, epoch, device):
         clip_gradient(optimizer, 1e-3)
         optimizer.step()
         losslst.append(loss)
-        pbar.set_description(f"E: {epoch}, loss: {(sum(losslst) / len(losslst)):.5f}")
+        pbar.set_description(f"Epoch: {epoch}, loss: {(sum(losslst) / len(losslst)):.5f}")
     return loss
 
 def vaild_step(model, loader, epoch, device):
@@ -58,6 +58,6 @@ def vaild_step(model, loader, epoch, device):
             if i == 0:
                 corr += 1
             tot += 1
-        pbar.set_description(f"E: {epoch}, _acc: {(corr / tot):.5f} ({corr}/{tot})")
+        pbar.set_description(f"Epoch: {epoch}, _acc: {(corr / tot):.5f} ({corr}/{tot})")
     return corr / tot
 
