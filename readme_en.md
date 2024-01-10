@@ -1,4 +1,4 @@
-# LSTM Auto Regression Stock Predict
+# LSTM Autoregressive Stock Predict
 
 [![Generic badge](https://img.shields.io/badge/Open%20Source%3f-Yes-green.svg)](https://shields.io/)
 
