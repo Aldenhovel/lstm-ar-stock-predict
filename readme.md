@@ -1,10 +1,12 @@
 # LSTM 自回归股票预测
 
+[![Generic badge](https://img.shields.io/badge/Open%20Source%3f-Yes-green.svg)](https://shields.io/)
+
 ![s](img/title.png)
 
 <h4 align="center">
     <p>
-        <b>简体中文</b> |
+        <b>中文</b> |
         <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme_en.md">English</a> 
     <p>
 </h4>

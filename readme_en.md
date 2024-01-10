@@ -1,10 +1,12 @@
 # LSTM Auto Regression Stock Predict
 
+[![Generic badge](https://img.shields.io/badge/Open%20Source%3f-Yes-green.svg)](https://shields.io/)
+
 ![s](img/title.png)
 
 <h4 align="center">
     <p>
-        <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme.md">简体中文</a> |
+        <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme.md">中文</a> |
         <b>English</b> 
     <p>
 </h4>
