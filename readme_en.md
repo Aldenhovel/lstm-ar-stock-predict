@@ -19,6 +19,10 @@
 
 4. This model can theoretically be applied to other temporal autoregressive tasks.
 
+## Framework
+
+![s](img/framework.png)
+
 
 
 ## Data
@@ -56,7 +60,7 @@ For example, here -9.81 belongs to the interval 0 in (-10, -9.8], and is shifted
 
 ### LSTM Decoder
 
-The model definition for the LSTM decoder is in `models/LSTMDecoder.py`, and its parameters can be modified to achieve quantized model size.
+The model definition for the LSTM decoder is in `models/LSTMDecoder.py`, and its parameters can be modified to achieve quantized model size. The trained model is saved to `checkpoints` training, and we provide a pre-trained model `model-pretrained.pt` that can be used directly.
 
 ### Inference Module
 
@@ -94,15 +98,15 @@ See the example in `get_sample.ipynb`.
 
 ## Example of results
 
-![sample](img/sample0.png)
+![sample](img/sample01.png)
 
 <hr/>
 
-![sample](img/sample1.png)
+![sample](img/sample11.png)
 
 <hr/>
 
-![sample](img/sample2.png)
+![sample](img/sample21.png)
 
 \* @N means infer N steps .
 

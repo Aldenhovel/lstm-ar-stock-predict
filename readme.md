@@ -21,6 +21,12 @@
 
 
 
+### 框架
+
+![s](img/framework.png)
+
+
+
 ## 数据
 
 **训练数据** 在目录 `data/train/` 下有示例的训练数据，且需要解压。训练数据目录以时间区间为名，其下有大量 `yaml` 文件，每一个文件代表一个股票在某一段时间区间内的走势信息，包含以下字段：
@@ -56,7 +62,7 @@ tk.tokenize(arr)
 
 ### LSTM Decoder
 
-对于 LSTM 解码器的模型定义在于 `models/LSTMDecoder.py` 中，可以修改其参数实现量化模型大小。
+对于 LSTM 解码器的模型定义在于 `models/LSTMDecoder.py` 中，可以修改其参数实现量化模型大小。训练之后的模型保存至 `checkpoints` 中，我们提供了一个预训练的模型 `model-pretrained.pt` 可以直接使用。
 
 ### 推理模块
 
@@ -90,16 +96,18 @@ matplotlib==3.5.3
 
 参考 `get_sample.ipynb` 中的示例。
 
+
+
 ## 结果示例
 
-![sample](img/sample0.png)
+![sample](img/sample01.png)
 
 <hr/>
 
-![sample](img/sample1.png)
+![sample](img/sample11.png)
 
 <hr/>
 
-![sample](img/sample2.png)
+![sample](img/sample21.png)
 
 \* @N 表示向后推理N步。
