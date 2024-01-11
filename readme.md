@@ -2,8 +2,6 @@
 
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com)
 
-![framework](img/framework.svg)
-
 ![s](img/title.png)
 
 <h4 align="center">
@@ -12,6 +10,7 @@
         <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme_en.md">English</a> 
     <p>
 </h4>
+
 
 ## 声明
 
