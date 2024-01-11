@@ -112,3 +112,7 @@ matplotlib==3.5.3
 ![sample](img/sample21.png)
 
 \* @N 表示向后推理N步。
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=aldenhovel/lstm-ar-stock-predict&type=Date)](https://star-history.com/#aldenhovel/lstm-ar-stock-predict&Date)

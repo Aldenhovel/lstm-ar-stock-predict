@@ -112,3 +112,8 @@ See the example in `get_sample.ipynb`.
 
 \* @N means infer N steps .
 
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=aldenhovel/lstm-ar-stock-predict&type=Date)](https://star-history.com/#aldenhovel/lstm-ar-stock-predict&Date)
