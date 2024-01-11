@@ -11,15 +11,12 @@
     <p>
 </h4>
 
+
 ## Declaration
 
-1. This project is not to study financial trading investment tools. In fact, it is a small toy that I made on a whim when I was studying the Image Caption task.
+This project is not to study financial trading investment tools. In fact, it is a small toy that I made on a whim when I was studying the Image Caption task. Because it has not been professionally designed in terms of economics or investment strategies, it is normal for the results to be poor, and you can improve it yourself.
 
-2. In professional financial analysis, I learned that there are quite a few investment research methods based on machine learning. These methods have stronger theoretical support and the results are obviously better. This model has not been professionally designed in the financial field at all. It just uses natural language processing methods to try to solve the problem.
 
-3. This project is not functionally complete (even some prediction results are counterintuitive), and it is still far from a mature financial prediction model. If you are interested, you can improve it yourself.
-
-4. This model can theoretically be applied to other temporal autoregressive tasks.
 
 ## Framework
 
