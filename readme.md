@@ -1,6 +1,8 @@
 # LSTM 自回归股票预测
 
-[![Generic badge](https://img.shields.io/badge/Open%20Source%3f-Yes-green.svg)](https://shields.io/)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com)
+
+![framework](img/framework.svg)
 
 ![s](img/title.png)
 
