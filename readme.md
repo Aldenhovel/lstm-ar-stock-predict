@@ -10,8 +10,6 @@
         <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme_en.md">English</a> 
     <p>
 </h4>
-
-
 ## 声明
 
 1. 这个项目并非为了研究金融交易投资工具，实际上这是我研究 Image Caption 任务时突发奇想做的小玩具。
