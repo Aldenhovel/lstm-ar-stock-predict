@@ -30,6 +30,8 @@ def predict():
     return jsonify({'gs_img': gs_svg, 'bs_img': bs_svg})
 
 if __name__ == "__main__":
+    import sys
+    sys.path.append('..')
     from utils.Tokenizer import RandomCropTokenizer, MAX_LEN, Tokenizer
     from utils.StockDataset import StockDataset
     from utils.DataReader import DataReader
