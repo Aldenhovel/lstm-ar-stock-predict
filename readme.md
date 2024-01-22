@@ -79,11 +79,12 @@ LSTM的自回归生成式推理过程与训练有点不同，需要融合搜索�
 
 ```shell
 conda create -n tmp python==3.7
+conda activate tmp
 ```
 
 ```shell
 cd lstm-ar-stock-predict
-python install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
+pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 ```
 
 ### 训练与推理
@@ -123,7 +124,7 @@ cd gui/
 python run_gui.py
 ```
 
-请点击显示链接或者在浏览器手动打开。
+请点击显示链接或者在浏览器手动打开，一般是 `http://127.0.0.1:5000` 。
 
 ## Star History
 

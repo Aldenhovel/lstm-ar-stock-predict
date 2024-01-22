@@ -79,11 +79,12 @@ We recommend using Anaconda to create this runtime environment.
 
 ```` shell
 conda create -n tmp python==3.7
+conda activate tmp
 ````
 
 ```` shell
 cd lstm-ar-stock prediction
-python install -rrequirements.txt -i https://mirrors.aliyun.com/pypi/simple
+pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 ````
 
 ### Training and inference
@@ -121,7 +122,7 @@ cd gui/
 python run_gui.py
 ```
 
-Please click the display link or open it manually in the browser.
+Please click the display link or open it manually in the browser, for example `http://127.0.0.1:5000`.
 
 ## Star History
 
