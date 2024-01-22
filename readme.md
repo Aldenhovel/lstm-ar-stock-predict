@@ -75,14 +75,15 @@ LSTM的自回归生成式推理过程与训练有点不同，需要融合搜索�
 
 ### 环境
 
+我们建议使用Anaconda来创建这个运行环境。
+
+```shell
+conda create -n tmp python==3.7
 ```
-tushare==1.2.89
-torch==1.13.1
-pyyaml==6.0.1
-torchinfo==1.8.0
-numpy-base=1.21.5=py37hca35cd5_3
-tqdm==4.66.1
-matplotlib==3.5.3
+
+```shell
+cd lstm-ar-stock-predict
+python install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 ```
 
 ### 训练与推理
@@ -108,6 +109,21 @@ matplotlib==3.5.3
 ![sample](img/sample21.png)
 
 \* @N 表示向后推理N步。
+
+
+
+## 使用图形化界面
+
+![gui](img/gui.png)
+
+我们在 `gui/` 下设计了使用Flask的前后端交互界面，运行
+
+```shell
+cd gui/
+python run_gui.py
+```
+
+请点击显示链接或者在浏览器手动打开。
 
 ## Star History
 

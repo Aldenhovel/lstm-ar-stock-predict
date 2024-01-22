@@ -75,17 +75,18 @@ The autoregressive generative reasoning process of LSTM is a bit different from 
 
 ### Requirements
 
-```
-tushare==1.2.89
-torch==1.13.1
-pyyaml==6.0.1
-torchinfo==1.8.0
-numpy-base=1.21.5=py37hca35cd5_3
-tqdm==4.66.1
-matplotlib==3.5.3
-```
+We recommend using Anaconda to create this runtime environment.
 
-### training and inference
+```` shell
+conda create -n tmp python==3.7
+````
+
+```` shell
+cd lstm-ar-stock prediction
+python install -rrequirements.txt -i https://mirrors.aliyun.com/pypi/simple
+````
+
+### Training and inference
 
 See the examples in `main.ipynb`.
 
@@ -109,7 +110,18 @@ See the example in `get_sample.ipynb`.
 
 \* @N means infer N steps .
 
+## Use graphical interface
 
+![gui](img/gui.png)
+
+We designed the front-end and back-end interactive interface using Flask under `gui/`. Run
+
+```shell
+cd gui/
+python run_gui.py
+```
+
+Please click the display link or open it manually in the browser.
 
 ## Star History
 
