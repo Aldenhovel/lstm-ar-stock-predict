@@ -29,25 +29,37 @@ def predict():
     gs_svg = gs(model, inference, device, ds, tk, yaml_path)
     return jsonify({'gs_img': gs_svg, 'bs_img': bs_svg})
 
+@app.route('/config', methods=['POST'])
+def config():
+    data = request.get_json()
+    field = data['field']
+    if field == 'all':
+        return jsonify(config)
+    elif field in config.keys():
+        return jsonify({field: config[field]})
+    else:
+        print(f'config field [{field}] is not in config . ')
+        pass
+
+
 if __name__ == "__main__":
     import sys
     sys.path.append('..')
-    from utils.Tokenizer import RandomCropTokenizer, MAX_LEN, Tokenizer
+    from utils.Tokenizer import MAX_LEN, Tokenizer
     from utils.StockDataset import StockDataset
-    from utils.DataReader import DataReader
     from utils.Inference import Inference
-    from utils.Train import train_step, vaild_step
-    from utils.Loss import MyLoss
-    from models.LSTMDecoder import LSTMDecoder
 
     import torch
-    import torch.nn as nn
-    from torchinfo import summary
-    from torch.utils.data import DataLoader
-
     import matplotlib.pyplot as plt
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = torch.load("../checkpoints/model-pretrained.pt", map_location=device)
+
+    config = dict()
+    config['model'] = 'LSTM'
+    config['checkpoint_path'] = "../checkpoints/model-pretrained.pt"
+    config['checkpoint'] = config['checkpoint_path'].split('/')[-1]
+    config['device'] = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+    device = torch.device(config['device'])
+    model = torch.load(config['checkpoint_path'], map_location=device)
     model.device = device
     inference = Inference(model=model, device=device)
 
