@@ -16,7 +16,43 @@
         <v-text-field clearable label="Stock Code" variant="solo-filled" v-model="code" v-on:focus="codeFocus" v-on:blur="codeBlur" placeholder="300001"></v-text-field>
         Select a date to predict:
         <v-date-picker width="100%" v-model="endDate"></v-date-picker>
-        <v-btn variant="tonal" width="100%" @click="predict()">Predict</v-btn>
+        <v-btn variant="tonal" width="100%" @click="predict()" color="success">Predict</v-btn>
+
+        <template>
+          <v-card
+              class="mx-auto ma-1 mt-2"
+          >
+            <v-list disabled>
+              <v-list-item>
+                <v-icon class="mr-1">mdi-chip</v-icon>
+                <v-list-item-title>{{ config_device }}</v-list-item-title>
+              </v-list-item>
+              <hr/>
+              <v-list-item>
+                <v-icon class="mr-1">mdi-package</v-icon>
+                <v-list-item-title>{{ config_model }}</v-list-item-title>
+              </v-list-item>
+              <hr/>
+              <v-list-item>
+                <v-icon class="mr-1">mdi-package-variant</v-icon>
+                <v-list-item-title>{{ config_checkpoint }}</v-list-item-title>
+              </v-list-item>
+              <hr/>
+              <v-list-item>
+                <v-icon class="mr-1" v-if="check_conn === '0'" color="success">mdi-lan-connect</v-icon>
+                <v-icon v-else class="mr-1" color="error">mdi-lan-disconnect</v-icon>
+                <v-list-item-title v-if="check_conn === '0'">backend connected</v-list-item-title>
+                <v-list-item-title v-else>backend offline</v-list-item-title>
+              </v-list-item>
+              <hr/>
+              <v-list-item>
+                <v-icon class="mr-1">mdi-timer</v-icon>
+                <v-list-item-title>{{ conn_time }}</v-list-item-title>
+              </v-list-item>
+
+            </v-list>
+          </v-card>
+        </template>
 
       </v-col>
     </v-row>
@@ -38,6 +74,13 @@ name: "ChartView1",
     bs_img: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
     gs_img: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
     blur: false,
+
+    config_model: '--',
+    config_checkpoint: '--',
+    config_device: '--',
+
+    check_conn: '-1',
+    conn_time: '--',
   }),
   methods: {
     codeFocus() {
@@ -73,6 +116,25 @@ name: "ChartView1",
     }
   },
   mounted() {
+
+    setInterval(() => {
+      axios.get('/check_conn').then(response => {
+        let data = response.data;
+        this.check_conn = data.status;
+        this.conn_time = data.conn_time;
+        let config = data.config;
+        this.config_model = config.model;
+        this.config_checkpoint = config.checkpoint;
+        this.config_device = config.device;
+      }).catch(error => {
+        console.log(error);
+        this.check_conn = '-1';
+        this.conn_time = '--';
+        this.config_model = '--';
+        this.config_checkpoint = '--';
+        this.config_device = '--';
+      })
+    }, 1000)
 
   },
   watch: {

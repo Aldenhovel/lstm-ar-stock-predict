@@ -1,4 +1,4 @@
-# Recommand Open `vue-dev/` in WebStorm
+# ds
 
 ## Project setup
 ```
