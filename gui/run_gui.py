@@ -24,8 +24,6 @@ def get_image():
 def predict():
     data = request.get_json()
     code, end_date = data['code'], data['endDate']
-    end_date = [int(x) for x in end_date.split('-')]
-    end_date = datetime.date(*end_date)
     yaml_path = get_sample_by_code(code, end_date)
     bs_svg = bs(model, inference, device, ds, tk, yaml_path)
     gs_svg = gs(model, inference, device, ds, tk, yaml_path)
