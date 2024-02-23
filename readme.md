@@ -12,6 +12,18 @@
 </h4>
 
 
+## Update
+
+2024/2/23
+
+>
+>
+>- 升级了爬虫，增加对 tushare pro API 的支持，请看 `使用——API配置` 。
+>- 旧版的数据 API 已失效，因此删除了无效的代码。
+>- 优化了数据样本形式。
+
+
+
 ## 声明
 
 这个项目并非为了研究金融交易投资工具，实际上这是我研究 Image Caption 任务时突发奇想做的小玩具。因为没有经过经济学或者投资策略上的专业设计，效果不好很正常，你可以自己改进。
@@ -29,7 +41,7 @@
 **训练数据** 在目录 `data/train/` 下有示例的训练数据，且需要解压。训练数据目录以时间区间为名，其下有大量 `yaml` 文件，每一个文件代表一个股票在某一段时间区间内的走势信息，包含以下字段：
 
 - `date` 采集数据时间。
-- `start` 该股票数据的起始时间。
+- ~~`start` 该股票数据的起始时间。~~
 - `end` 该股票数据的结束时间。
 - `code` 该股票代码。
 - `stdchange` 该股票在时间区间内的涨跌百分比情况列表。
@@ -86,6 +98,10 @@ conda activate tmp
 cd lstm-ar-stock-predict
 pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 ```
+
+### API配置
+
+由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 tushare 官网注册申请。请将 api token 复制到 `gui/config.json` 中。
 
 ### 训练与推理
 
