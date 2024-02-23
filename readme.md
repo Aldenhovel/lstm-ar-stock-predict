@@ -101,7 +101,7 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ### API配置
 
-由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 tushare 官网注册申请。请将 api token 复制到 `gui/config.json` 中。
+由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 [tushare 官网](https://tushare.pro/)注册申请。将 api token 复制到 `gui/config.json` 中。
 
 ### 训练与推理
 
