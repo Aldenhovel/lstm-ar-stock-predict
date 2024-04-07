@@ -4,7 +4,16 @@
 
 ![s](img/title.png)
 
+[TOC]
+
 ## Update
+
+2024/4/7
+
+>
+>
+>- 调整：目录结构`gui`->`web-ui`。
+>- 新增：在`web-ui`中使用bat脚本一键构造venv环境（这是为了方便直接用户使用，假如您想要研发改进，我依然推荐配置anaconda环境并使用jupyter模式）。
 
 2024/2/23
 
@@ -79,7 +88,7 @@ LSTM的自回归生成式推理过程与训练有点不同，需要融合搜索�
 
 ### 环境
 
-我们建议使用Anaconda来创建这个运行环境。
+**假如您想要直接使用功能，推荐直接使用脚本一键建立`venv`环境，请跳转到【使用图形化界面】。**如果您的目的是继续研究本项目，我们建议使用Anaconda来创建这个运行环境。
 
 ```shell
 conda create -n tmp python==3.7
@@ -93,7 +102,7 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ### API配置
 
-由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 [tushare 官网](https://tushare.pro/)注册申请。将 api token 复制到 `gui/config.json` 中。
+由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 [tushare 官网](https://tushare.pro/)注册申请。将 api token 复制到 `web-ui/config.json` 中。
 
 ### 训练与推理
 
@@ -121,18 +130,26 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 
 
-## 使用图形化界面
+## 使用图形化界面（测试）
 
 ![gui](img/gui.png)
 
-我们在 `web-ui/` 下设计了使用Flask的前后端交互界面，运行
+### 安装venv虚拟环境
 
-```shell
-cd web_ui/
-python run_web_ui.py
-```
+我们在 `web-ui/` 下设计了使用Flask的前后端交互界面，首先配置Python环境：
 
-请点击显示链接或者在浏览器手动打开，一般是 `http://127.0.0.1:5000` 。
+1. 进入`web-ui/venv/`下双击运行`install_py.bat`，其中会下载Python安装包并弹出安装步骤，使用默认即可。随后会自动安装依赖模块，请耐心等待一切就绪。
+
+2. 安装`venv`环境需要消耗存储空间，如果您是专业人士，可以手动配置Anaconda环境提高模块复用率。
+3. 假如您想要卸载虚拟环境，请运行`uninstall_py.bat`，注意这里安装和卸载都仅在本目录下，不会影响系统或其他地方的Python环境，除非您修改了安装和卸载的默认选项（最好不要这样）。
+
+### API配置
+
+由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 [tushare 官网](https://tushare.pro/)注册申请。将 api token 复制到 `web-ui/config.json` 中。
+
+### 启动web-ui
+
+当安装完成后，返回`web-ui/`下，运行`run-web-ui.bat`即可启动网页端图形界面。请点击显示链接或者在浏览器手动打开，一般是 `http://127.0.0.1:5000` 。
 
 ## Star History
 
