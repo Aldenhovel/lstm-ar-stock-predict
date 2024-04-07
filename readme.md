@@ -4,8 +4,6 @@
 
 ![s](img/title.png)
 
-[TOC]
-
 ## Update
 
 2024/4/7
@@ -142,6 +140,8 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 2. 安装`venv`环境需要消耗存储空间，如果您是专业人士，可以手动配置Anaconda环境提高模块复用率。
 3. 假如您想要卸载虚拟环境，请运行`uninstall_py.bat`，注意这里安装和卸载都仅在本目录下，不会影响系统或其他地方的Python环境，除非您修改了安装和卸载的默认选项（最好不要这样）。
+
+*由于没钱买苹果电脑，这里只在Windows上经过初步设计，如使用MacOS或者遇到问题，请使用Anaconda配置环境吧（尬住）。*
 
 ### API配置
 
