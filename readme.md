@@ -4,14 +4,6 @@
 
 ![s](img/title.png)
 
-<h4 align="center">
-    <p>
-        <b>中文</b> |
-        <a href="https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/readme_en.md">English</a> 
-    <p>
-</h4>
-
-
 ## Update
 
 2024/2/23
@@ -133,11 +125,11 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ![gui](img/gui.png)
 
-我们在 `gui/` 下设计了使用Flask的前后端交互界面，运行
+我们在 `web-ui/` 下设计了使用Flask的前后端交互界面，运行
 
 ```shell
-cd gui/
-python run_gui.py
+cd web_ui/
+python run_web_ui.py
 ```
 
 请点击显示链接或者在浏览器手动打开，一般是 `http://127.0.0.1:5000` 。
