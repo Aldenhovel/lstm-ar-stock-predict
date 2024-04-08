@@ -16,10 +16,8 @@ start /wait python-%PYTHON_VERSION%-amd64.exe TargetDir=%INSTALL_DIR% InstallAll
 %INSTALL_DIR%\python.exe -m pip install --upgrade pip
 
 echo Installing required packages from %REQUIREMENTS_FILE%...
-%INSTALL_DIR%\python.exe -m pip install -r %~dp0%REQUIREMENTS_FILE% -i https://mirrors.aliyun.com/pypi/simple/
+%INSTALL_DIR%\python.exe -m pip install -r %~dp0%REQUIREMENTS_FILE% -i https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
-echo Installation of required packages completed!
-
-echo Don't forget to deactivate the virtual environment when you're done by typing 'deactivate'.
+echo DONE
 
 pause
