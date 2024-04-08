@@ -2,7 +2,7 @@
 __pycache__/
 .ipynb_checkpoints/
 *.pyc
-gui/static/img/*.svg
+web-ui/static/img/*.svg
 /data/test/*.yaml
-
+/web-ui/venv/py
 
