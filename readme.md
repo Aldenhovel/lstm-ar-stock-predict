@@ -4,8 +4,6 @@
 
 ![s](img/title.png)
 
-
-
 ## 0 声明
 
 这个项目并非为了研究金融交易投资工具，实际上这是我研究 Image Caption 任务时突发奇想做的小玩具。因为没有经过经济学或者投资策略上的专业设计，效果不好很正常，你可以自己改进。
@@ -104,28 +102,9 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ## 6 使用图形化界面
 
-![gui](img/gui.png)
+![image-20240417174951604](img/image-20240417174951604.png)
 
-### 6.1 安装venv虚拟环境
-
-我们在 `web-ui/` 下设计了使用Flask的前后端交互界面，首先配置Python环境：
-
-1. 进入`web-ui/venv/`下双击运行`install_py.bat`，其中会下载Python安装包并弹出安装步骤，选择`Install Now`或者`Repair`，配置使用默认即可。随后会自动安装依赖模块，请耐心等待一切就绪。
-
-2. 一键安装虚拟环境需要消耗较多存储空间，亦可以手动配置Anaconda环境提高模块复用率。
-3. 卸载虚拟环境，请运行`uninstall_py.bat`，请不要直接删除目录。
-
-*由于没钱买苹果电脑，这里只在Windows上经过初步设计，如使用MacOS或者遇到问题，请使用Anaconda配置环境吧（尬住）。*
-
-### 6.2 API配置
-
-由于原版的开放 tushare API 已失效，现在需要新的 tushare pro API 来抓取数据，请到 [tushare 官网](https://tushare.pro/)注册申请。将 api token 复制到 `web-ui/config.json` 中。
-
-### 6.3 启动web-ui
-
-当安装完成后，在`web-ui/`下运行`run-web-ui.bat`即可启动网页端图形界面。请点击显示链接或者在浏览器手动打开，一般是 `http://127.0.0.1:5000` 。
-
-
+请参考图像界面使用指引：`doc/quickstart.md`
 
 ## 7结果示例
 
@@ -144,6 +123,15 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 
 ## A. Update
+
+【2024/4/17】
+
+>
+>
+>- 新增：使用**React.js重构了图形化界面**，现在更好用了！
+>- 调整：图形界面中使用于可交互报表展示数据，不再使用图片形式。
+>- 调整：将提供更多文档，集中于`doc/`下。
+>- 删除：基于Vue.js的图形化界面暂停使用，但会保存在`release v0.1 vue`版本中作为历史版本存档。后续开发都将基于React.js。
 
 【2024/4/7】
 
@@ -164,4 +152,5 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ## B. Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=aldenhovel/lstm-ar-stock-predict&type=Date)](https://star-history.com/#aldenhovel/lstm-ar-stock-predict&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=aldenhovel/lstm-ar-stock-predict&type=Date)
+
