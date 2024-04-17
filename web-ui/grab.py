@@ -4,12 +4,15 @@ import datetime
 import json
 
 
-def get_sample_by_code(symbol, end_date='2024-02-22', time_delta=90):
-    stdcode = symbol[:-3]
-    # old API
-    # df = ts.get_hist_data(stdcode, start=str(start_date), end=str(end_date))
+def getSampleByCode(code, end_date='2024-02-22', time_delta=90):
+    code = code
+    if code[:2] in ['00', '30']:
+        symbol = code + '.SZ'
+    elif code[:2] in ['60', '68']:
+        symbol = code + '.SH'
+    else:
+        symbol = code
 
-    # new API require token
     with open('config.json', 'r') as f:
         config = json.load(f)
         assert config['tushare_api_token'], "tushare api token not found in config.json"
@@ -25,26 +28,36 @@ def get_sample_by_code(symbol, end_date='2024-02-22', time_delta=90):
     }, fields=[
         "pct_chg",
         "ts_code",
-        "trade_date"
+        "trade_date",
+        "open",
+        "close",
+        "high",
+        "low"
     ])
     try:
         pct_chg = [*df['pct_chg']][::-1]
+        tradedate = [*df['trade_date']][::-1]
         sample = {
             'date': datetime.datetime.today(),
             'end': str(end_date),
-            'code': stdcode,
+            'code': code,
             'stdchange': pct_chg,
+            'tradedate': tradedate,
+
+            'open': [*df['open']][::-1],
+            'close': [*df['close']][::-1],
+            'high': [*df['high']][::-1],
+            'low': [*df['low']][::-1]
         }
 
-        with open(f'../data/test/{stdcode}.yaml', 'w+') as f:
+        with open(f'../data/test/{code}.yaml', 'w+') as f:
             yaml.dump(sample, f)
+
+        return f'../data/test/{code}.yaml'
     except Exception as e:
         print(e)
-    print(f'Done.')
-    print(f'Sample saved in [../data/test/{stdcode}.yaml]')
-    print(f'Seqlen of this sample: [{len(pct_chg)}], while time delta is [{time_delta}]')
-    return f'../data/test/{stdcode}.yaml'
+
 
 
 end_date = '2024-02-22'
-get_sample_by_code('300001.SZ', end_date)
+getSampleByCode('300002', end_date)

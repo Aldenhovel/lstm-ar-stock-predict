@@ -1,102 +1,77 @@
-import matplotlib.pyplot as plt
+from backend import ModelState
 import torch
+from backend import flattenList
 
 
-def plot_fig(history, inference, future_3=None, future_5=None, future_10=None, future_greedy=None, max_step=10):
-    fig = plt.figure(figsize=[15, 5])
-    xmax = len(history) + max_step
-    if future_10:
-        future_min, future_max = 1e9, -1e9
-        for i in range(len(future_10)):
-            pred_curve = history + future_10[i][:xmax]
-            pred_curve = inference.postprocess([pred_curve])[0]
-            plt.plot(pred_curve, label="pred", color="#1b7c3d")
-            future_min, future_max = min(future_min, pred_curve[-1]), max(future_max, pred_curve[-1])
-        vline10 = plt.vlines(len(history) - 1 + 10, 0, future_max, linestyles="dashed", colors="#1b7c3d")
-        plt.vlines(len(history) - 1 + 10, 0, future_min, linestyles="dashed", colors="#1b7c3d")
-    if future_5:
-        future_min, future_max = 1e9, -1e9
-        for i in range(len(future_5)):
-            pred_curve = history + future_5[i][:xmax]
-            pred_curve = inference.postprocess([pred_curve])[0]
-            plt.plot(pred_curve, label="pred", color="#2b6a99")
-            future_min, future_max = min(future_min, pred_curve[-1]), max(future_max, pred_curve[-1])
-        vline5 = plt.vlines(len(history) - 1 + 5, 0, future_max, linestyles="dashed", colors="#2b6a99")
-        plt.vlines(len(history) - 1 + 5, 0, future_min, linestyles="dashed", colors="#2b6a99")
-    if future_3:
-        future_min, future_max = 1e9, -1e9
-        for i in range(len(future_3)):
-            pred_curve = history + future_3[i][:xmax]
-            pred_curve = inference.postprocess([pred_curve])[0]
-            plt.plot(pred_curve, label="pred", color="#f16c23")
-            future_min, future_max = min(future_min, pred_curve[-1]), max(future_max, pred_curve[-1])
-        vline3 = plt.vlines(len(history) - 1 + 3, 0, future_max, linestyles="dashed", colors="#f16c23")
-        plt.vlines(len(history) - 1 + 3, 0, future_min, linestyles="dashed", colors="#f16c23")
-
-    if future_greedy:
-        future_min, future_max = 1e9, -1e9
-        for i in range(len(future_greedy)):
-            pred_curve = history + future_greedy[i][:xmax]
-            pred_curve = inference.postprocess([pred_curve])[0]
-            plt.plot(pred_curve, label="pred", color="#f16c23")
-            future_min, future_max = min(future_min, pred_curve[-1]), max(future_max, pred_curve[-1])
-        vlinegd = plt.vlines(len(history) - 1 + len(future_greedy[i][:xmax]), 0, future_max, linestyles="dashed",
-                             colors="#f16cca")
-        plt.vlines(len(history) - 1 + len(future_greedy[i][:xmax]), 0, future_min, linestyles="dashed",
-                   colors="#f16cca")
-
-    history = inference.postprocess([history])[0]
-    today = plt.vlines(len(history) - 1, 0, history[-1], colors="gray")
-    handles, labels = [today], ['today']
-    if future_3: handles.append(vline3), labels.append('+3days')
-    if future_5: handles.append(vline5), labels.append('+5days')
-    if future_10: handles.append(vline10), labels.append('+10days')
-    if future_greedy: handles.append(vlinegd), labels.append(f'greedy search: +{len(future_greedy[i][:xmax])} days')
-    plt.legend(handles=handles, labels=labels, loc='best')
-
-    plt.plot(history, color="black")
-    plt.xlim([0, xmax])
-    plt.xlabel("Time Step")
-    plt.ylabel("Change %")
-    plt.title("Prediction")
-    plt.grid()
-
-    return fig
-
-
-def bs(model, inference, device, ds, tk, yaml_path):
-    model.eval()
+def greedySearch(model_state: ModelState, yaml_path: str, search_step: int):
+    model_state.model.eval()
     with torch.no_grad():
-        data = ds.reader.readyaml(yaml_path)
-        end_date = data["end"]
-        code = data['code']
+        data = model_state.ds.reader.readyaml(yaml_path)
         seq_raw = data["stdchange"]
-        seq, seqlen = tk.tokenize(seq_raw)
-        seq = torch.Tensor(seq).long().to(device)
+        trade_date = data['tradedate']
+        open_ = data['open']
+        close_ = data['close']
+        high_ = data['high']
+        low_ = data['low']
 
-        pred, _, _ = inference.greedy_search(seq.to(device), seqlen, predict_step=30)
-        seq = seq.cpu().numpy().tolist()
+        seq, seqlen = model_state.tk.tokenize(seq_raw)
+        seq = torch.Tensor(seq).long().to(model_state.device)
 
-        fig = plot_fig(history=seq[1: 1 + seqlen], future_greedy=pred, max_step=30, inference=inference)
-        fig.savefig(f'./static/img/bs_{code}_{end_date}.svg', format='svg')
-    return f'img/bs_{code}_{end_date}.svg'
+        preds, _, _ = model_state.inference.greedy_search(
+            seq.to(model_state.device),
+            seqlen,
+            predict_step=search_step
+        )
+        pd = [(x - 50) * 0.002 + 1 for x in flattenList(preds)]
+        pdp = [close_[-1]]
+        for i in range(len(pd)):
+            pdp.append(round(pdp[-1] * pd[i], 2))
+        pd = pdp
+        assert len(open_) == len(close_) == len(high_) == len(low_)
+        gt = []
+        for i in range(len(open_)): gt.append([open_[i], close_[i], high_[i], low_[i]])
+        trade_date.extend([f'+{i}' for i in range(1, len(pd))])
+        return {
+            'gt': gt,
+            'pd': pd,
+            'xaxis': trade_date,
+        }
 
 
-def gs(model, inference, device, ds, tk, yaml_path):
-    model.eval()
+def beamSearch(model_state: ModelState, yaml_path: str, search_step: int, beam_size: int):
+    model_state.model.eval()
     with torch.no_grad():
-        data = ds.reader.readyaml(yaml_path)
-        end_date = data["end"]
-        code = data['code']
+        data = model_state.ds.reader.readyaml(yaml_path)
         seq_raw = data["stdchange"]
-        seq, seqlen = tk.tokenize(seq_raw)
-        seq = torch.Tensor(seq).long().to(device)
+        trade_date = data['tradedate']
+        open_ = data['open']
+        close_ = data['close']
+        high_ = data['high']
+        low_ = data['low']
 
-        preds_3, _, _ = inference.beam_search(seq.to(device), seqlen, beam_size=10, predict_step=3)
-        preds_5, _, _ = inference.beam_search(seq.to(device), seqlen, beam_size=20, predict_step=5)
-        preds_10, _, _ = inference.beam_search(seq.to(device), seqlen, beam_size=50, predict_step=10)
-        seq = seq.cpu().numpy().tolist()
+        seq, seqlen = model_state.tk.tokenize(seq_raw)
+        seq = torch.Tensor(seq).long().to(model_state.device)
 
-        fig = plot_fig(history=seq[1: 1 + seqlen], future_3=preds_3, future_5=preds_5, future_10=preds_10, max_step=10, inference=inference)
-        fig.savefig(f'./static/img/gs_{code}_{end_date}.svg', format='svg')
-    return f'img/gs_{code}_{end_date}.svg'
+        preds, _, _ = model_state.inference.beam_search(
+            seq.to(model_state.device),
+            seqlen,
+            beam_size=beam_size,
+            predict_step=search_step
+        )
+
+        pdp = []
+        for i in range(beam_size):
+            pdp_i = [close_[-1]]
+            for j in range(len(preds[0])):
+                pdp_i.append(round(pdp_i[-1] * ((preds[i][j] - 50) * 0.002 + 1), 2))
+            pdp.append(pdp_i)
+        pd = pdp
+        assert len(open_) == len(close_) == len(high_) == len(low_)
+        gt = []
+        for i in range(len(open_)): gt.append([open_[i], close_[i], high_[i], low_[i]])
+        trade_date.extend([f'+{i}' for i in range(1, len(pd[0]))])
+        return {
+            'pd': pd,
+            'xaxis': trade_date,
+            'gt': gt,
+        }
