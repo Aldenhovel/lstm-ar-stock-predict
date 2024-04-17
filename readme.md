@@ -18,14 +18,19 @@
 
 ## 2 数据
 
-**训练数据** 在目录 `data/train/` 下有示例的训练数据，且需要解压。训练数据目录以时间区间为名，其下有大量 `yaml` 文件，每一个文件代表一个股票在某一段时间区间内的走势信息，包含以下字段：
+**训练数据** 在目录 `data/train/` 下有示例的训练数据，且需要解压。训练数据目录以时间区间为名，其下有大量 `yaml` 文件，每一个文件代表一个股票在某一段时间区间内的走势信息，包含以下字段（旧版的数据仅包含`date` `end` `code` `stdchange` 四个字段，但不影响训练，新的`v0.2`版本在采集时会包含所有字段）：
 
-- `date` 采集数据时间。
-- `end` 该股票数据的结束时间。
-- `code` 该股票代码。
-- `stdchange` 该股票在时间区间内的涨跌百分比情况列表。
+- `date: string` 采集数据时间。
+- `end: string` 该股票数据的结束时间。
+- `code: string` 该股票代码。
+- `stdchange: <float>` 该股票在时间区间内的涨跌百分比情况列表。
+- `open: <float>` 该股票开盘价。
+- `close: array<float>` 该股票收盘价。
+- `high: array<float>` 该股票最高价。
+- `low: array<float>` 该股票最低价。
+- `tradedate: array<string>` 历史交易日数据。
 
-**测试数据** 在目录 `data/test` 下有示例的测试数据，测试数据也是 `yaml` 文件，其内容格式与训练数据一致，但是直接存放在测试目录下。
+**测试数据** 在目录 `data/test` 下有示例的测试数据，测试数据也是 `yaml` 文件，其内容格式与训练数据基本一致。
 
 
 
@@ -50,7 +55,7 @@ tk.tokenize(arr)
 
 ### 3.2 LSTM解码器
 
-对于 LSTM 解码器的模型定义在于 `models/LSTMDecoder.py` 中，可以修改其参数实现量化模型大小。训练之后的模型保存至 `checkpoints` 中，我们提供了一个预训练的模型 `model-pretrained.pt` 可以直接使用。
+对于 LSTM 解码器的模型定义在于 `models/LSTMDecoder.py` 中，可以修改其参数实现量化模型大小。训练之后的模型保存至 `checkpoints/` 中，我们提供了一个预训练的模型 `model-pretrained.pt` 可以直接使用。
 
 ### 3.3 推理模块
 
@@ -59,6 +64,8 @@ LSTM的自回归生成式推理过程与训练有点不同，需要融合搜索�
 **贪婪搜索** 每次将当前阶段概率最大者作为预测结果，直到搜索结束，最后会生成1个预测结果。
 
 **波束搜索** 每次维护一个大小为 `beam_size` 的候选群，直到搜索结束，最后会生成 `beam_size` 个预测结果。
+
+
 
 ## 4 在Pycharm中开发
 
@@ -104,7 +111,9 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ![image-20240417174951604](img/image-20240417174951604.png)
 
-请参考图像界面使用指引：`doc/quickstart.md`
+请参考使用指引：[Web UI图形化界面指引 ](https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/docs/quickstart.md) 。
+
+
 
 ## 7结果示例
 

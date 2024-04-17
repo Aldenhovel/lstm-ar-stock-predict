@@ -4,5 +4,6 @@ __pycache__/
 *.pyc
 web-ui/static/img/*.svg
 /data/test/*.yaml
+!/data/test/300001.yaml
 /web-ui/venv/py
 
