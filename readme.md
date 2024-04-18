@@ -109,7 +109,7 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ## 6 使用图形化界面
 
-![image-20240417174951604](img/image-20240417174951604.png)
+![image-20240418224958872](img/image-20240418224958872.png)
 
 请参考使用指引：[Web UI图形化界面指引 ](https://github.com/Aldenhovel/lstm-ar-stock-predict/blob/main/docs/quickstart.md) 。
 
@@ -119,15 +119,11 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 ![sample](img/sample01.png)
 
-<hr/>
-
 ![sample](img/sample11.png)
-
-<hr/>
 
 ![sample](img/sample21.png)
 
-\* @N 表示向后推理N步。
+\* @N 表示向后推理N步。数据均来自A股市场。
 
 
 
@@ -159,7 +155,12 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 
 
-## B. Star History
+## B. Repo Status
+
+**B.1 Star History:**
 
 ![Star History Chart](https://api.star-history.com/svg?repos=aldenhovel/lstm-ar-stock-predict&type=Date)
 
+**B.2 Visitor Count:**
+
+![visitor count](https://profile-counter.glitch.me/aldenhovel-lstm-ar-stock-predict/count.svg)
