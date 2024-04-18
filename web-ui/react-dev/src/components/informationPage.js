@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Card, Row, Col, Button} from "antd";
+import {Card} from "antd";
 import {BranchesOutlined, CalendarOutlined, GithubOutlined, UserOutlined} from "@ant-design/icons";
 
 class InformationPage extends React.Component {
@@ -33,10 +33,10 @@ class InformationPage extends React.Component {
                 <Card style={{...this.cardCss}}>
                     <p style={{fontSize: '24px', margin: '0 0 10px'}}>Version Information</p>
                     <ul style={{fontSize: '20px', margin: '0 0 10px'}}>
-                        <li><BranchesOutlined/> alpha v0.2-20240415</li>
+                        <li><BranchesOutlined/> v0.2-20240415</li>
                         <li><CalendarOutlined/> 2024-4-15</li>
                         <li><UserOutlined/> aldenhovel</li>
-                        <li><GithubOutlined/>  <a herf={'https://github.com/Aldenhovel/lstm-ar-stock-predict'}>https://github.com/Aldenhovel/lstm-ar-stock-predict</a></li>
+                        <li><GithubOutlined/>  <a href={'https://github.com/Aldenhovel/lstm-ar-stock-predict'}>https://github.com/Aldenhovel/lstm-ar-stock-predict</a></li>
                     </ul>
                 </Card>
 

@@ -1,6 +1,8 @@
 const option = {
+    animation: true,
+    animationDuration:200,
+    animationDurationUpdate:200,
     dataZoom: [
-
         {
             show: true,
             type: 'slider',

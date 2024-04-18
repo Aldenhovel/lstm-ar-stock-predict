@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
-import {Card, Row, Col, Button, Popconfirm, notification} from "antd";
+import {Card, Button, Popconfirm} from "antd";
+import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 
 class SettingsPage extends React.Component {
 
@@ -34,12 +35,12 @@ class SettingsPage extends React.Component {
             <Fragment>
                 <Card style={{...this.cardCss}}>
                     <p style={{fontSize: '24px', margin: '0 0 10px'}}>Clean up</p>
-                    <Button disabled type={"primary"} style={{...this.buttonCss}}>Clean tmp files</Button>
-                    <Button disabled type={"primary"} style={{...this.buttonCss}}>Clean tmp files</Button>
+                    <Button disabled type={"primary"} style={{...this.buttonCss}}>Clean test files</Button>
+                    <Button disabled type={"primary"} style={{...this.buttonCss}}>Clean log files</Button>
                 </Card>
                 <Card style={this.cardCss}>
                     <p style={{fontSize: '24px', margin: '0 0 10px'}}>Reload</p>
-                    <Popconfirm title={"Reload UI"} description={"Are you sure to reload UI?"} okText={"Yes"} cancelText={"NO"} onConfirm={this.handleReloadUI} onCancel={() => {}}>
+                    <Popconfirm title={"Reload UI now?"} okText={<><CheckOutlined /> Yes</>} cancelText={<><CloseOutlined /> No</>} onConfirm={this.handleReloadUI} onCancel={() => {}}>
                         <Button type={"primary"} style={{...this.buttonCss}}>Reload UI</Button>
                     </Popconfirm>
 

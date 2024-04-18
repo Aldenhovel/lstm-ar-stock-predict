@@ -7,9 +7,9 @@ import {Badge, InputNumber} from "antd";
 import {defaultGreedySearchOption} from "./chartOptions";
 import * as echarts from 'echarts'
 import dayjs from "dayjs";
+import apiProxy from "./proxy";
 
 import axios from "axios";
-import eventBus from "./eventBus";
 
 class GreedySearchChart extends React.Component {
 
@@ -51,7 +51,6 @@ class GreedySearchChart extends React.Component {
 
     handleSetChart = (option) => {
         this.state.myChart && this.state.myChart.setOption(option);
-
     }
 
     handleChangeDate = (e) => {
@@ -77,7 +76,7 @@ class GreedySearchChart extends React.Component {
 
     handleCheckAvailableCheckpoint = (e) => {
         this.setState({cModelSelect: []})
-        axios.get('/getCheckpointsItems')
+        axios.get(apiProxy + '/getCheckpointsItems')
             .then(response => {
                 let cModelSelect = [];
                 let ckpts = response.data.checkpoints;
@@ -106,8 +105,8 @@ class GreedySearchChart extends React.Component {
             dateM: this.state.data.date.dateM,
             dateD: this.state.data.date.dateD,
         };
-        //console.log(profile);
-        axios.post('/processGreedySearch', profile)
+        console.log(profile);
+        axios.post(apiProxy + '/processGreedySearch', profile)
             .then(response => {
                 this.setState((prevState) => {
                     let newState = {...prevState};
@@ -135,7 +134,9 @@ class GreedySearchChart extends React.Component {
             .catch(error => {
                 console.log(error);
             })
-        this.setState({isLoading: false});
+            .finally(() => {
+                this.setState({isLoading: false});
+            })
     }
 
     handleChangeSearchStep = (e) => {
@@ -182,6 +183,40 @@ class GreedySearchChart extends React.Component {
         this.setState({ myChart });
     }
 
+    handleNextDate = () => {
+        this.setState((prevState) => {
+            const newState = {...prevState};
+            let newDate = dayjs(new Date(newState.data.date.dateY, newState.data.date.dateM - 1, newState.data.date.dateD)).add(1, 'day');
+            while (newDate.day() === 6 || newDate.day() === 0) {
+                newDate = newDate.add(1, 'day');
+            }
+            newState.data.date.dateY = newDate.year();
+            newState.data.date.dateM = newDate.month() + 1;
+            newState.data.date.dateD = newDate.date();
+            this.handleChangeDate(newDate);
+            return newState;
+        });
+        this.handleProcess();
+        console.log(this.state.data.date.dateD, this.state.data.date.dateM)
+    }
+
+    handlePrevDate = () => {
+        this.setState((prevState) => {
+            const newState = {...prevState};
+            let newDate = dayjs(new Date(newState.data.date.dateY, newState.data.date.dateM - 1, newState.data.date.dateD)).add(-1, 'day');
+            while (newDate.day() === 6 || newDate.day() === 0) {
+                newDate = newDate.add(-1, 'day');
+            }
+            newState.data.date.dateY = newDate.year();
+            newState.data.date.dateM = newDate.month() + 1;
+            newState.data.date.dateD = newDate.date();
+            this.handleChangeDate(newDate);
+            return newState;
+        });
+        this.handleProcess();
+        console.log(this.state.data.date.dateD, this.state.data.date.dateM)
+    }
+
 
     render() {
 
@@ -200,7 +235,7 @@ class GreedySearchChart extends React.Component {
                                     options={this.state.cModelSelect}
                                     onChange={this.handleChangeCheckpoint}
                                     onDropdownVisibleChange={this.handleCheckAvailableCheckpoint}
-                            ></Select>
+                            />
                             <Badge status="success" text="Search Steps"/><br/>
                             <InputNumber min={1} max={50} defaultValue={10} onChange={this.handleChangeSearchStep}
                                          changeOnWheel/>
@@ -213,12 +248,15 @@ class GreedySearchChart extends React.Component {
                             <Input addonAfter={this.state.data.codePostfix} defaultValue="300001"
                                    style={{width: '90%', margin: '5px 0'}} onChange={this.handleChangeCode}/>
                             <Badge status="success" text="Date"/><br/>
-                            <DatePicker defaultValue={dayjs('2024-4-15')} onChange={this.handleChangeDate} style={{width: '90%', margin: '5px 0'}}/>
+                            <DatePicker allowClear={false} defaultValue={dayjs('2024-4-15')} value={dayjs(new Date(this.state.data.date.dateY, this.state.data.date.dateM - 1, this.state.data.date.dateD))} onChange={this.handleChangeDate} style={{width: '90%', margin: '5px 0'}}/>
                         </Card>
 
                         <Card bordered={true} style={{width: '95%', margin: '10px auto', backgroundColor: '#F0F0F0'}}>
-                            <Button block loading={this.state.isLoading} onClick={this.handleProcess} type={"primary"} style={{width: '100%', margin: '0 auto'}}>Process</Button>
+                            <Button block loading={this.state.isLoading} onClick={this.handleProcess} type={"primary"} style={{width: '100%', height: '50px', margin: '0 auto 10px'}}>Process</Button>
+                            <Button block loading={this.state.isLoading} onClick={this.handlePrevDate} type={"primary"} style={{width: '50%', backgroundColor: 'orange'}}>-1</Button>
+                            <Button block loading={this.state.isLoading} onClick={this.handleNextDate} type={"primary"} style={{width: '50%', backgroundColor: 'orange'}}>+1</Button>
                         </Card>
+
 
 
                     </Col>
@@ -230,7 +268,7 @@ class GreedySearchChart extends React.Component {
                             padding: '0',
                             backgroundColor: '#F0F0F0'
                         }} bordered={true}>
-                            <div id="chart" style={{backgroundColor: 'white', width: '100%', height: '550px',}}></div>
+                            <div id="chart" style={{backgroundColor: 'white', width: '100%', height: '550px',}} />
                         </Card>
                     </Col>
                 </Row>

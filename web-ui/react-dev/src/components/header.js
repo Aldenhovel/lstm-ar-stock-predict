@@ -14,8 +14,8 @@ class Header extends React.Component {
             <div>
                 <Row
                     style={{
-                        height: "80px",
-                        background: "linear-gradient(to bottom, #87CEEB, #1E90FF, #FFFFFF)",
+                        height: "60px",
+                        background: "linear-gradient(to bottom, #3300CC, #4775FF, #3300CC)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center"
@@ -27,7 +27,7 @@ class Header extends React.Component {
                             paddingLeft: '24px',
                             fontSize: "36px",
                             fontFamily: "'Euclid', sans-serif",
-                            color: "#000000",
+                            color: "#FFFFFF",
                             textAlign: "left"
                         }}
                     >
